@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+    <v-app>
+      <p>{{ message }}</p>
+      <film />
+    </v-app>
   </div>
 </template>
 
 <script>
+import film from "./src/components/film.vue";
+
 export default {
-  data: function () {
+  data: function() {
     return {
       message: "Hello Vue!"
-    }
+    };
+  },
+  components: {
+    film: film
   }
-}
+};
 </script>
 
 <style scoped>
