@@ -2,7 +2,7 @@
   <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>Films</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
@@ -11,6 +11,7 @@
           </template>
           <v-card>
             <v-card-title>
+              <!--------edit or show film------------->
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
 
@@ -102,7 +103,7 @@ export default {
         this.editedIndex = -1;
       }, 300);
     },
-    //use axios get backend films
+    //use axios get backend films index
     initialize() {
       return axios
         .get("http://localhost:3000/films")
@@ -112,6 +113,17 @@ export default {
         })
         .catch(e => {
           console.log(e);
+        });
+    },
+    //use axios get backend films show
+    getFilm(item) {
+      axios
+        .get(`https://localhost:3000/${item.id}`)
+        .then(response => {
+          this.dessert = response.data;
+        })
+        .catch(error => {
+          console.log(error);
         });
     }
   }
