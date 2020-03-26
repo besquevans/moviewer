@@ -1,17 +1,19 @@
 <template>
-  <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
+  <v-data-table :headers="headers" :items="films" sort-by="id" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>Films</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+
+        <v-dialog v-model="dialog" max-width="800px">
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Film</v-btn>
           </template>
+
+          <!--------edit or update film------------->
           <v-card>
             <v-card-title>
-              <!--------edit or show film------------->
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
 
@@ -40,10 +42,12 @@
         </v-dialog>
       </v-toolbar>
     </template>
+
     <template v-slot:item.action="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
       <v-icon small @click="deleteItem(item)">delete</v-icon>
     </template>
+
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
     </template>
@@ -57,16 +61,17 @@ export default {
     dialog: false,
     headers: [
       {
-        text: "Title",
+        text: "ID",
         align: "left",
         sortable: false,
-        value: "title"
+        value: "id"
       },
       { text: "Title", value: "title" },
       { text: "Year", value: "year" },
-      { text: "Intro", value: "intro" }
+      { text: "Intro", value: "intro" },
+      { text: "Actions", value: "action", sortable: false }
     ],
-    desserts: [],
+    films: [],
     editedIndex: -1,
     editedItem: {
       title: "",
@@ -74,16 +79,14 @@ export default {
       intro: ""
     },
     defaultItem: {
-      name: "",
-      calories: "",
-      fat: "",
-      carbs: "",
-      protein: ""
+      title: "",
+      year: "",
+      intro: ""
     }
   }),
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Film" : "Edit Film";
     }
   },
   watch: {
@@ -105,11 +108,12 @@ export default {
     },
     //use axios get backend films index
     initialize() {
+      //films index
       return axios
         .get("http://localhost:3000/films")
         .then(response => {
           console.log(response.data);
-          this.desserts = response.data;
+          this.films = response.data;
         })
         .catch(e => {
           console.log(e);
@@ -117,6 +121,7 @@ export default {
     },
     //use axios get backend films show
     getFilm(item) {
+      //show the film
       axios
         .get(`https://localhost:3000/${item.id}`)
         .then(response => {
@@ -125,6 +130,45 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    editItem(item) {
+      //edit the film
+      this.editedIndex = item.id;
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    save(item) {
+      if (this.editedIndex > -1) {
+        //update the film
+        axios
+          .put(`http://localhost:3000/films/${item.id}`, {
+            title: this.editedItem.title,
+            year: this.editedItem.year,
+            intro: this.editedItem.intro
+          })
+          .then(response => {
+            console.log(response);
+            this.initialize();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        //create new film
+        axios
+          .post(`http://localhost:3000/films/`, {
+            film: this.editedItem
+          })
+          .then(response => {
+            console.log(response);
+            console.log("Success!");
+            this.initialize();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+      this.close();
     }
   }
 };
