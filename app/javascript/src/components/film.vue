@@ -169,6 +169,23 @@ export default {
           });
       }
       this.close();
+    },
+    deleteItem(item) {
+      const index = this.films.indexOf(item);
+      confirm("Are you sure you want to delete this film?");
+      axios
+        .delete(`http://localhost:3000/films/${item.id}`)
+        .then(response => {
+          console.log(response);
+          console.log(response.data.json);
+          alert(response.data.json);
+          this.initialize();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      //remove 1 object from array
+      this.films.splice(index, 1);
     }
   }
 };

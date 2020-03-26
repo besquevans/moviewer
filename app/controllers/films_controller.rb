@@ -27,6 +27,15 @@ class FilmsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@film = Film.find(params[:id])
+		if @film.destroy
+			render json: { json: 'The film was successfully deleted.'}
+		else
+			render json: { json: @film.errors, status: :unprocessable_entity }
+		end
+	end
+
 	private
 
 	def film_params
