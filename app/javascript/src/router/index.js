@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Films from "../components/films/Index.vue";
 import Film from "../components/Film.vue";
 import Omdb from "../components/Omdb.vue";
 
@@ -9,12 +10,17 @@ export default new Router({
 		{
 			path: '/',
 			name: 'root_path',
-			component: Film
+			component: Films
 		},
 		{
 			path: '/omdb',
 			name: 'omdb_path',
 			component: Omdb
-		}
+		},
+		{
+			path: '/film',
+			name: 'film_path',
+			component: Film
+		},
 	]
 })
