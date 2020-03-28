@@ -6,6 +6,8 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
+        <router-link to="omdb">Search</router-link>
+
         <v-dialog v-model="dialog" max-width="800px">
           <template v-slot:activator="{ on }">
             <v-btn color="primary" dark class="mb-2" v-on="on">New Film</v-btn>
