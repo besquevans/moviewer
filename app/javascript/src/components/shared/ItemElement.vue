@@ -1,8 +1,8 @@
 <template>
   <div class="film-item">
     <div class="film" :style="imgShow"></div>
-    <h3>{{title}}</h3>
-
+    <h3>{{ title }}</h3>
+    <p>{{ intro }}</p>
     <div class="film-btn-container" v-if="isLogin">
       <v-btn @click="handleShow">Show</v-btn>
       <v-btn @click="handleEdit">Edit</v-btn>
@@ -25,6 +25,10 @@ export default {
     title: {
       type: String,
       default: "title"
+    },
+    year: {
+      type: Number,
+      default: 2087
     },
     url: {
       type: String,
