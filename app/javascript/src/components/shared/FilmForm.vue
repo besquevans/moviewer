@@ -1,11 +1,10 @@
 <template>
-  <div class="film-form">
-    <input type="text" id="title" placeholder="Title" v-model="newTitle" />
-    <input type="value" id="year" placeholder="Year" v-model="newYear" />
-    <textarea name="intro" id="intro" placeholder="intro" rows="7" v-model="newIntro" />
-
-    <button class="submit-btn" @click="handleSubmit">Submit</button>
-  </div>
+  <v-form>
+    <v-text-field label="Title" v-model="newTitle"></v-text-field>
+    <v-text-field label="Year" v-model="newYear"></v-text-field>
+    <v-textarea label="Intro" v-model="newIntro"></v-textarea>
+    <v-btn class="mr-4" @click="handleSubmit">Submit</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -14,6 +13,10 @@ export default {
     title: {
       type: String,
       default: ""
+    },
+    year: {
+      type: Number,
+      default: 2020
     },
     intro: {
       type: String,
@@ -31,9 +34,9 @@ export default {
   methods: {
     handleSubmit: function() {
       const payload = {
-        title: this.newTitle,
-        year: this.newYear,
-        intro: this.newIntro
+        title: this.title,
+        year: this.year,
+        intro: this.intro
         //file_location: this.file
       };
       console.log("submit film from");
