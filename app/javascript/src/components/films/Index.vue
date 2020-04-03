@@ -3,7 +3,7 @@
     <v-btn @click="handleNew">New Film</v-btn>
 
     <div class="item-list" v-for="film in films">
-      <item-element :title="film.title" :year="film.year" :intro="film.intro" />
+      <ItemElement :id="film.id" :title="film.title" :year="film.year" :intro="film.intro" />
     </div>
   </div>
 </template>

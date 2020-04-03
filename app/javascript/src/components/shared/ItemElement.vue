@@ -1,6 +1,7 @@
 <template>
   <div class="film-item">
     <div class="film" :style="imgShow"></div>
+    <p>{{ id }}</p>
     <h3>{{ title }}</h3>
     <p>{{ year }}</p>
     <p>{{ intro }}</p>
