@@ -3,20 +3,20 @@
     <v-btn @click="handleNew">New Film</v-btn>
 
     <div class="item-list" v-for="film in films">
-      <itemElement />
+      <item-element :title="film.title" :year="film.year" :intro="film.intro" />
     </div>
   </div>
 </template>
 
 <script>
 import ItemElement from "../shared/ItemElement.vue";
-import Axios from "axios";
+import axios from "axios";
 
 export default {
-  data: function() {
+  data() {
     return {
       isLogin: true,
-      films: films
+      films: []
     };
   },
   components: {
@@ -30,8 +30,9 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost: 3000")
-      .then(response => (this.films = response));
+      .get("/api/v1/films")
+      .then(response => (this.films = response.data))
+      .catch(error => console.log(error));
   }
 };
 </script>
