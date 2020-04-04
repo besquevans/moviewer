@@ -33,14 +33,15 @@ export default {
   },
   methods: {
     handleSubmit: function() {
-      const payload = {
-        title: this.title,
-        year: this.year,
-        intro: this.intro
+      var payload = {
+        title: this.newTitle,
+        year: this.newYear,
+        intro: this.newIntro
         //file_location: this.file
       };
+      // form submit
+      this.$emit("film-form-submit", payload);
       console.log("submit film from");
-      console.dir(payload);
     }
   }
 };

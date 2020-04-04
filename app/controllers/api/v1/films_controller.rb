@@ -1,5 +1,5 @@
 class Api::V1::FilmsController < ApiController
-  def index
+	def index
 		@films = Film.all
 		render json: @films 
 	end
@@ -21,7 +21,7 @@ class Api::V1::FilmsController < ApiController
 	def update
 		@film = Film.find(params[:id])
 		if @film.update(film_params)
-			render json: { status: :ok, message: 'Update Success' }
+			render json: { result: {id: params[:id]}, status: :ok, message: 'Update Success' }
 		else
 			render json: { json: @film.errors, status: :unprocessable_entity }
 		end
@@ -39,6 +39,7 @@ class Api::V1::FilmsController < ApiController
 	private
 
 	def film_params
-		params.require(:film).permit(:title, :year, :intro)
+		#api params no require()
+		params.permit(:title, :year, :intro)
 	end
 end
