@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: {
     isLogin: {
@@ -51,7 +53,21 @@ export default {
       console.log("edit");
     },
     handleDelete: function() {
-      console.log("destroy");
+      console.log("destroy film");
+      let that = this;
+      //evn var
+      var deleteUrl = "http://localhost:3000/api/v1/films/" + this.id;
+
+      axios
+        .delete(deleteUrl)
+        .then(function(res) {
+          console.log(res);
+          //傳遞 delete事件給 Inedx 更新 Item list
+          that.$emit("destroy-item", { id: that.id });
+        })
+        .catch(function(err) {
+          console.error(err.response.data);
+        });
     }
   },
   computed: {
