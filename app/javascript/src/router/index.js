@@ -16,24 +16,24 @@ export default new Router({
 			component: Films
 		},
 		{
-			path: '/films/:id',
-			name: 'Show',
-			component: Show
-		},
-		{
-			path: 'films/new',
+			path: '/films/new',
 			name: 'New',
 			component: New
-		},
-		{
-			path: 'films/edit/:id',
-			name: 'Edit',
-			component: Edit
 		},
 		{
 			path: '/omdb',
 			name: 'omdb_path',
 			component: Omdb
+		},
+		{
+			path: '/films/:id',
+			name: 'Show',
+			component: Show
+		},
+		{
+			path: '/films/edit/:id',
+			name: 'Edit',
+			component: Edit
 		},
 		{
 			path: '/film',

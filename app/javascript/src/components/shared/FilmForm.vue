@@ -16,7 +16,7 @@ export default {
     },
     year: {
       type: Number,
-      default: 2020
+      default: null
     },
     intro: {
       type: String,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="handleNew">New Film</v-btn>
-
+    <router-link to="/films/new">New</router-link>
     <div class="item-list" v-for="film in films">
       <ItemElement :id="film.id" :title="film.title" :year="film.year" :intro="film.intro" />
     </div>
