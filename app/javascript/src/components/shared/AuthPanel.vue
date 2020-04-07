@@ -1,18 +1,10 @@
 <template>
-  <v-card class="d-flex pa-102" color="indigo darken-2">
-    <v-card elevation="12" width="256">
-      <v-card-title>Please {{ content }}</v-card-title>
-
-      <v-form>
-        <v-text-field label="Email" v-model="email"></v-text-field>
-        <v-text-field label="Password" v-model="password"></v-text-field>
-      </v-form>
-      <v-card-actions>
-        <v-btn @click="handleSubmit">{{ content }}</v-btn>
-        <v-btn @click="cancelSubmit">{{ cancel }}</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-card>
+  <v-form>
+    <h1>Please {{ content }}</h1>
+    <v-text-field label="Email" v-model="email"></v-text-field>
+    <v-text-field label="Password" v-model="password"></v-text-field>
+    <v-btn class="mr-4" @click="handleSubmit">{{ content }}</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -21,8 +13,7 @@ export default {
   data: function() {
     return {
       email: "",
-      password: "",
-      cancel: "Cancel"
+      password: ""
     };
   },
   computed: {
@@ -40,12 +31,9 @@ export default {
         email: this.email,
         password: this.password
       };
+      this.$emit("auth-panel-submit", payload);
       console.log("submit auth");
-      console.log("payload");
-    },
-    cancelSubmit: function() {
-      this.$emit("auth-submit", false);
-      console.log("cancelSubmit");
+      console.dir(payload);
     }
   }
 };

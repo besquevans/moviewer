@@ -36,8 +36,7 @@ export default {
       this.$router.push("/signup");
     },
     handleLogin: function() {
-      this.$emit("auth-submit", true);
-      console.log("auth-submit");
+      this.$router.push("/login");
     },
     handleLogout: function() {
       console.log("logout");
